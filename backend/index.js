@@ -5,9 +5,10 @@ const User = require('./model/userschema.js');
 const md5 = require('md5');
 const jwt = require('jsonwebtoken')
 const passwordrouter = require('./controllers/passwordcontroller.js')
-
+const cors = require('cors');
 const PORT = process.env.PORT;
 const SECRET_KEY = process.env.SECRET_KEY;
+
 
 const app = express();
 app.use(express.json())
@@ -17,6 +18,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/password-manager').then(()=>{
 }).catch((error)=>{
     console.log(error)
 })
+app.use(cors({
+    origin: 'http://localhost:3000', // Your frontend URL
+    credentials: true  // This allows cookies to be sent cross-domain
+  }));
+
 
 app.post('/register',async (req,res)=>{
     const {username , email , password} = req.body;
@@ -46,12 +52,12 @@ app.post('/register',async (req,res)=>{
     await newUser.save();
 
     res.status(201).json({
-        message:"user registeered successfully",
+        message:"User registered successfully",
         user:newUser
     })
     } catch (error) {
         res.status(500).json({
-            message:"server error",
+            message:"Server error",
             error:error
         })
     }
@@ -63,7 +69,7 @@ app.post('/login',async (req,res)=>{
 
     if(!email || !password){
         return res.status(400).json({
-            message:"all feilds are required"
+            message:"All fields are required"
         })
     }
 
@@ -71,7 +77,7 @@ app.post('/login',async (req,res)=>{
         const user = await User.findOne({email});
         if(!user || user.password !== md5(password)){
             return res.status(401).json({
-                message:"invalid credentials"
+                message:"Invalid Credentials"
             })
         }
 
@@ -83,21 +89,21 @@ app.post('/login',async (req,res)=>{
         )
 
         res.status(200).json({
-            message:"login success",
+            message:"User logged in successfully",
             user:user,
             token:token
         })
         
     } catch (error) {
         res.status(500).json({
-            message:"server error",error
+            message:"Server error",error
         })
     }
 })
 
 app.get('/dashboard',verifyToken,(req,res)=>{
     res.json({
-        message:"welcome to dashboard"
+        message:"Welcome to the Dashboard"
     })
 })
 
