@@ -19,8 +19,20 @@ mongoose.connect(process.env.MONGODB_URL).then(()=>{
 }).catch((error)=>{
     console.log(error)
 })
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://ecc-based-password-manager.vercel.app'
+];
+
 app.use(cors({
-    origin: '*'
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 
 
