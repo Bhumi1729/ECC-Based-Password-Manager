@@ -20,8 +20,8 @@ const Login = () => {
     setSuccessMessage(null);
     
     try {
-      console.log('Sending request to:', 'http://localhost:4000/login');
-      const response = await fetch('http://localhost:4000/login', {
+      console.log('Sending request to:', 'https://ecc-based-password-manager.onrender.com/login');
+      const response = await fetch('https://ecc-based-password-manager.onrender.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

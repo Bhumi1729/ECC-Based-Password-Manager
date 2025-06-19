@@ -20,9 +20,8 @@ mongoose.connect(process.env.MONGODB_URL).then(()=>{
     console.log(error)
 })
 app.use(cors({
-    origin: 'http://localhost:3000', // Your frontend URL
-    credentials: true  // This allows cookies to be sent cross-domain
-  }));
+    origin: '*'
+}));
 
 
 app.post('/register',async (req,res)=>{

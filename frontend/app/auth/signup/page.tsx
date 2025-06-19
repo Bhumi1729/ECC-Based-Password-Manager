@@ -12,7 +12,7 @@ interface RegisterResponse {
 }
 
 // Update this with your backend API URL
-const API_URL = "http://localhost:4000"; // Adjust this port to match your backend PORT
+const API_URL = "https://ecc-based-password-manager.onrender.com"; // Adjusted to deployed backend URL
 
 export default function SignupPage() {
     const [showPassword, setShowPassword] = useState(false);
