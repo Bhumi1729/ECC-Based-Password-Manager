@@ -1,3 +1,4 @@
+require('dotenv').config(); // Automatically load environment variables from .env file
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -13,7 +14,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const app = express();
 app.use(express.json())
 
-mongoose.connect('mongodb://127.0.0.1:27017/password-manager').then(()=>{
+mongoose.connect(process.env.MONGODB_URL).then(()=>{
     console.log('mongodb connected')
 }).catch((error)=>{
     console.log(error)

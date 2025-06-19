@@ -2,12 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-interface LoginProps {
-  onLogin?: (user: any, token: string) => void;
-  onGoogleLogin?: () => void;
-}
-
-const Login: React.FC<LoginProps> = ({ onLogin = () => {}, onGoogleLogin = () => {} }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +44,7 @@ const Login: React.FC<LoginProps> = ({ onLogin = () => {}, onGoogleLogin = () =>
       console.log('Token stored, calling onLogin');
       
       // Call the onLogin callback with user data and token
-      onLogin(data.user, data.token);
+      // onLogin(data.user, data.token);
       console.log('onLogin called');
       
       // Display success message
@@ -68,7 +63,7 @@ const Login: React.FC<LoginProps> = ({ onLogin = () => {}, onGoogleLogin = () =>
     setIsLoading(true);
     
     // This would be replaced with actual Google auth implementation
-    onGoogleLogin();
+    // onGoogleLogin();
     setIsLoading(false);
   };
   
@@ -304,4 +299,6 @@ const Login: React.FC<LoginProps> = ({ onLogin = () => {}, onGoogleLogin = () =>
   );
 };
 
-export default Login;
+export default function LoginPage() {
+  return <Login />;
+}
